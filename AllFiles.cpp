@@ -68,11 +68,6 @@ int Student::GetId() const
     return id_;
 }
 
-int Student::GetBorrowedCount() const
-{
-    return borrowedCount_;
-}
-
 bool Student::CanBorrow() const
 {
     return borrowedCount_ < MAX_BOOKS;

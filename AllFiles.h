@@ -63,8 +63,10 @@ public:
 
     std::string GetName() const;
     int GetId() const;
-    int GetBorrowedCount() const;
-
+    inline int GetBorrowedCount() const
+    {
+        return borrowedCount_;
+    }
     bool CanBorrow() const;
 
     bool BorrowBook(Book& book);

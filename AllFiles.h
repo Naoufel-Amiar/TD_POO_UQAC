@@ -71,5 +71,7 @@ public:
 
     bool BorrowBook(Book& book);
     bool ReturnBook(Book& book);
+
+    void DisplayBorrowedBooks() const;
 };
 

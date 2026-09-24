@@ -126,3 +126,11 @@ bool Student::ReturnBook(Book& book)
     // Le livre n'etait pas dans le tableau de l'etudiant
     return false;
 }
+
+void Student::DisplayBorrowedBooks() const
+{
+    for (int i = 0; i < borrowedCount_; i++)
+    {
+        std::cout << "- " << borrowedBooks_[i].title << std::endl;
+    }
+}

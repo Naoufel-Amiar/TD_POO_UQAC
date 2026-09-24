@@ -96,6 +96,9 @@ int main()
     std::cout << "Nombre de livres de Marie : "
         << marie.GetBorrowedCount() << std::endl;
 
+    std::cout << "Liste des livres de Marie :" << std::endl;
+    marie.DisplayBorrowedBooks();
+
 
     // ==================== TEST DES RETOURS ====================
 

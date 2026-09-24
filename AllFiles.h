@@ -54,6 +54,7 @@ private:
     int id_;
 
     static constexpr int MAX_BOOKS = 5;
+    static int studentCount_;
 
     BorrowedBook borrowedBooks_[MAX_BOOKS];
     int borrowedCount_;
@@ -67,6 +68,8 @@ public:
     {
         return borrowedCount_;
     }
+
+    static int GetStudentCount();
     bool CanBorrow() const;
 
     bool BorrowBook(Book& book);

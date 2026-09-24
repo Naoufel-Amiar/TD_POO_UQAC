@@ -50,12 +50,14 @@ bool Book::Return()
 }
 
 // ==================== STUDENT ====================
+int Student::studentCount_ = 0;
 
 Student::Student(std::string name, int id)
     : name_{ name },
     id_{ id },
     borrowedCount_{ 0 }
 {
+    studentCount_++;
 }
 
 std::string Student::GetName() const
@@ -66,6 +68,11 @@ std::string Student::GetName() const
 int Student::GetId() const
 {
     return id_;
+}
+
+int Student::GetStudentCount()
+{
+    return studentCount_;
 }
 
 bool Student::CanBorrow() const

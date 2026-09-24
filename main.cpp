@@ -24,6 +24,10 @@ int main()
     Student marie("Marie Tremblay", 1);
     Student hugo("Hugo Lambert", 2);
 
+    std::cout << "Nombre d'etudiants crees : "
+        << Student::GetStudentCount()
+        << std::endl;
+
 
     // ==================== LIVRES DE LA BIBLIOTHEQUE ====================
 

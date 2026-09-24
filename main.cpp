@@ -1,6 +1,12 @@
 #include <iostream>
 #include "AllFiles.h"
 
+// Convertit un booleen en texte pour afficher True ou False
+std::string BoolToString(bool value)
+{
+    return value ? "True" : "False";
+}
+
 int main()
 {
     // ==================== CREATION DES LIVRES ====================
@@ -19,22 +25,20 @@ int main()
     Student hugo("Hugo Lambert", 2);
 
 
-    // Permet d'afficher true / false au lieu de 1 / 0
-    std::cout << std::boolalpha;
-
-
     // ==================== LIVRES DE LA BIBLIOTHEQUE ====================
 
     std::cout << "=== Livres de la bibliotheque ===" << std::endl;
 
     std::cout << dune.GetTitle()
         << " par " << dune.GetAuthor()
-        << " : disponible = " << dune.IsAvailable()
+        << " : disponible = "
+        << BoolToString(dune.IsAvailable())
         << std::endl;
 
     std::cout << fondation.GetTitle()
         << " par " << fondation.GetAuthor()
-        << " : disponible = " << fondation.IsAvailable()
+        << " : disponible = "
+        << BoolToString(fondation.IsAvailable())
         << std::endl;
 
 
@@ -42,25 +46,46 @@ int main()
 
     std::cout << "\n=== Test livre deja emprunte ===" << std::endl;
 
+    // Statut avant l'emprunt
+    std::cout << "Statut de Dune avant emprunt : "
+        << (dune.IsAvailable() ? "Disponible" : "Emprunte")
+        << std::endl;
+
     bool testMarieDune = marie.BorrowBook(dune);
 
     std::cout << "Marie emprunte Dune : "
-        << testMarieDune << std::endl;
+        << BoolToString(testMarieDune)
+        << std::endl;
+
+    // Statut apres l'emprunt
+    std::cout << "Statut de Dune apres emprunt : "
+        << (dune.IsAvailable() ? "Disponible" : "Emprunte")
+        << std::endl;
 
     bool testHugoDune = hugo.BorrowBook(dune);
 
     std::cout << "Hugo essaie d'emprunter Dune : "
-        << testHugoDune << std::endl;
+        << BoolToString(testHugoDune)
+        << std::endl;
 
 
-    // Marie rend Dune pour commencer les tests suivants avec 0 livre
+    // ==================== TEST DU RETOUR ====================
+
+    // Statut avant le retour
+    std::cout << "Statut de Dune avant retour : "
+        << (dune.IsAvailable() ? "Disponible" : "Emprunte")
+        << std::endl;
+
     bool retourDune = marie.ReturnBook(dune);
 
     std::cout << "Marie rend Dune : "
-        << retourDune << std::endl;
+        << BoolToString(retourDune)
+        << std::endl;
 
-    std::cout << "Dune disponible apres retour : "
-        << dune.IsAvailable() << std::endl;
+    // Statut apres le retour
+    std::cout << "Statut de Dune apres retour : "
+        << (dune.IsAvailable() ? "Disponible" : "Emprunte")
+        << std::endl;
 
 
     // ==================== TEST LIMITE DE 5 LIVRES ====================
@@ -68,22 +93,28 @@ int main()
     std::cout << "\n=== Test limite de 5 livres ===" << std::endl;
 
     std::cout << "Emprunt 1 (Dune) : "
-        << marie.BorrowBook(dune) << std::endl;
+        << BoolToString(marie.BorrowBook(dune))
+        << std::endl;
 
     std::cout << "Emprunt 2 (Fondation) : "
-        << marie.BorrowBook(fondation) << std::endl;
+        << BoolToString(marie.BorrowBook(fondation))
+        << std::endl;
 
     std::cout << "Emprunt 3 (Le Petit Prince) : "
-        << marie.BorrowBook(petitPrince) << std::endl;
+        << BoolToString(marie.BorrowBook(petitPrince))
+        << std::endl;
 
     std::cout << "Emprunt 4 (1984) : "
-        << marie.BorrowBook(livre1984) << std::endl;
+        << BoolToString(marie.BorrowBook(livre1984))
+        << std::endl;
 
     std::cout << "Emprunt 5 (Les Miserables) : "
-        << marie.BorrowBook(miserables) << std::endl;
+        << BoolToString(marie.BorrowBook(miserables))
+        << std::endl;
 
     std::cout << "Emprunt 6 (L'Etranger) : "
-        << marie.BorrowBook(etranger) << std::endl;
+        << BoolToString(marie.BorrowBook(etranger))
+        << std::endl;
 
 
     // ==================== VERIFICATION DE LA LIMITE ====================
@@ -91,10 +122,12 @@ int main()
     std::cout << "\n=== Verification de la limite ===" << std::endl;
 
     std::cout << "CanBorrow apres 5 emprunts : "
-        << marie.CanBorrow() << std::endl;
+        << BoolToString(marie.CanBorrow())
+        << std::endl;
 
     std::cout << "Nombre de livres de Marie : "
-        << marie.GetBorrowedCount() << std::endl;
+        << marie.GetBorrowedCount()
+        << std::endl;
 
     std::cout << "Liste des livres de Marie :" << std::endl;
     marie.DisplayBorrowedBooks();
@@ -105,11 +138,13 @@ int main()
     std::cout << "\n=== Test des retours ===" << std::endl;
 
     std::cout << "Marie rend Dune : "
-        << marie.ReturnBook(dune) << std::endl;
+        << BoolToString(marie.ReturnBook(dune))
+        << std::endl;
 
-    // Dune a deja ete rendu, donc ce deuxieme retour doit echouer
-    std::cout << "Marie essaie de rendre Dune une deuxieme fois : "
-        << marie.ReturnBook(dune) << std::endl;
+    // L'Etranger n'a pas ete emprunte par Marie
+    std::cout << "Marie essaie de rendre un livre non emprunte (L'Etranger) : "
+        << BoolToString(marie.ReturnBook(etranger))
+        << std::endl;
 
 
     // ==================== NOUVEL EMPRUNT APRES RETOUR ====================
@@ -117,21 +152,31 @@ int main()
     std::cout << "\n=== Emprunt apres liberation d'une place ===" << std::endl;
 
     std::cout << "Marie emprunte L'Etranger : "
-        << marie.BorrowBook(etranger) << std::endl;
+        << BoolToString(marie.BorrowBook(etranger))
+        << std::endl;
 
 
     // ==================== ETAT FINAL ====================
 
     std::cout << "\n=== Etat final ===" << std::endl;
 
-    std::cout << marie.GetName()
-        << " : " << marie.GetBorrowedCount()
-        << "/5 livres" << std::endl;
+    std::cout << "Etudiant " << marie.GetId()
+        << " (" << marie.GetName() << ") : "
+        << marie.GetBorrowedCount()
+        << " / 5 livre(s)"
+        << std::endl;
 
-    std::cout << hugo.GetName()
-        << " : " << hugo.GetBorrowedCount()
-        << "/5 livres" << std::endl;
+    marie.DisplayBorrowedBooks();
 
+    std::cout << std::endl;
+
+    std::cout << "Etudiant " << hugo.GetId()
+        << " (" << hugo.GetName() << ") : "
+        << hugo.GetBorrowedCount()
+        << " / 5 livre(s)"
+        << std::endl;
+
+    hugo.DisplayBorrowedBooks();
 
     return 0;
 }
